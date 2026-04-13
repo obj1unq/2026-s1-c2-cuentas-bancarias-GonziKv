@@ -6,8 +6,8 @@ describe "casa de pepe y julian" {
   // method initialize() {
   // }
   test "Gastos comun" {
-  casa.setCuenta(cuentaCorriente)
-  cuentaCorriente.depositar(300)
+  casa.cuenta(cuentaCorriente)
+  cuentaCorriente.saldo(300)
   assert.equals(0, casa.gastosDelMes())
   assert.equals(300, cuentaCorriente.saldo())
   casa.gastarDinero(200)
@@ -31,7 +31,7 @@ describe "casa de pepe y julian" {
     assert.equals(30, cuentaGastos.saldo())
   }
   test "Cuenta con gastos: caso excepcional"{
-    cuentaGastos.setCosto(20)
+    cuentaGastos.costo(20)
     assert.throwsException({cuentaGastos.depositar(10)})
     assert.equals(0, cuentaGastos.saldo())
   }
