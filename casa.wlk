@@ -9,7 +9,7 @@ object casa {
         cuentaParaGastos.retirar(monto)
         gastos = gastos + monto
     }
-    method setCuenta(_cuenta){
+    method cuenta(_cuenta){
         cuentaParaGastos = _cuenta
     }
     method cambiarMes(){
