@@ -1,9 +1,38 @@
 import casa.*
+import cuentas.*
 
-describe "casa de pepe y julian" {
-
+describe "casa de pepe y julian" { 
   // Descomentar si hiciera falta un metodo para inicializar el ambiente
   // method initialize() {
   // }
-
+  test "Gastos comun" {
+  casa.setCuenta(cuentaCorriente)
+  cuentaCorriente.depositar(300)
+  assert.equals(0, casa.gastosDelMes())
+  assert.equals(300, cuentaCorriente.saldo())
+  casa.gastarDinero(200)
+  assert.equals(100, cuentaCorriente.saldo())
+  assert.equals(200, casa.gastosDelMes())
+  casa.gastarDinero(400)
+  assert.equals(-300, cuentaCorriente.saldo())
+  assert.equals(600, casa.gastosDelMes())
+  casa.cambiarMes()
+  assert.equals(0, casa.gastosDelMes())
+  }
+  test "Cuenta con gastos: caso normal"{
+    cuentaGastos.setCosto(20)
+    cuentaGastos.depositar(1000)
+    assert.equals(980, cuentaGastos.saldo())
+    cuentaGastos.retirar(580)
+    assert.equals(400, cuentaGastos.saldo())
+    cuentaGastos.retirar(500)
+    assert.equals(-100, cuentaGastos.saldo())
+    cuentaGastos.depositar(150)
+    assert.equals(30, cuentaGastos.saldo())
+  }
+  test "Cuenta con gastos: caso excepcional"{
+    cuentaGastos.setCosto(20)
+    assert.throwsException({cuentaGastos.depositar(10)})
+    assert.equals(0, cuentaGastos.saldo())
+  }
 }
