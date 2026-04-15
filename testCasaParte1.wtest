@@ -20,7 +20,7 @@ describe "casa de pepe y julian" {
   assert.equals(0, casa.gastosDelMes())
   }
   test "Cuenta con gastos: caso normal"{
-    cuentaGastos.setCosto(20)
+    cuentaGastos.costo(20)
     cuentaGastos.depositar(1000)
     assert.equals(980, cuentaGastos.saldo())
     cuentaGastos.retirar(580)
