@@ -1,10 +1,11 @@
 import cuentas.*
+import estrategias.*
 object casa {
     var cuentaParaGastos = null
     var gastos = 0
     var viveres = 0
     var reparaciones = 0
-    var estrategia= null
+    var estrategia= minimoEIndispensable
 
     method saldo(){
         return cuentaParaGastos.saldo()
