@@ -4,7 +4,15 @@ object casa {
     var gastos = 0
     var viveres = 0
     var reparaciones = 0
+    var estrategia= null
 
+    method saldo(){
+        return cuentaParaGastos.saldo()
+    }
+
+    method estrategia(_estrategia){
+        estrategia = _estrategia
+    }
     method cuenta(_cuenta){
     cuentaParaGastos = _cuenta
     }
@@ -38,7 +46,7 @@ object casa {
     }
 
     method viveresSuficientes(){
-        return viveres > 40
+        return viveres >= 40
     }
     
     method faltanReparaciones(){
@@ -68,6 +76,7 @@ object casa {
     }
 
     method cambiarMes(){
+        estrategia.ejecutar()
         gastos = 0
     }
 }
