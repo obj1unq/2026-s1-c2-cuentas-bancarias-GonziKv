@@ -1,0 +1,48 @@
+import casa.*
+import estrategias.*
+import cuentas.*
+
+describe "Casos de Prueba"{
+    test "Probando Estrategia Minimo Indispensable"{
+        casa.viveres(30)
+        casa.reparaciones(100)
+        cuentaCombinada.cuentaPrimaria(cuentaGastos)
+        cuentaGastos.costo(20)
+        cuentaGastos.saldo(0)
+        cuentaCombinada.cuentaSecundaria(cuentaCorriente)
+        cuentaCorriente.saldo(0)
+        casa.cuenta(cuentaCombinada)
+        casa.estrategia(minimoEIndispensable)
+        minimoEIndispensable.calidadDeViveres(3)
+        assert.throwsException({casa.cambiarMes()})
+        cuentaCombinada.depositar(100)
+        casa.cambiarMes()
+        assert.equals(40, casa.viveres())
+        assert.equals(100, casa.reparaciones())
+        assert.equals(0, casa.gastosDelMes())
+        assert.equals(50, cuentaCombinada.saldo())
+    }
+    test "Probando Estrategia Full"{
+        casa.viveres(30)
+        casa.reparaciones(100)
+        casa.cuenta(cuentaCorriente)
+        cuentaCorriente.saldo(0)
+        casa.estrategia(full)
+        casa.cambiarMes()
+        assert.equals(40, casa.viveres())
+        assert.equals(-50, casa.saldo())
+        assert.equals(100, casa.reparaciones())
+        cuentaCorriente.depositar(450)
+        casa.cambiarMes()
+        assert.equals(40, casa.viveres())
+        assert.equals(300, casa.saldo())
+        assert.equals(0, casa.reparaciones())
+        casa.cambiarMes()
+        assert.equals(100, casa.viveres())
+        assert.equals(0, casa.saldo())
+        assert.equals(0, casa.reparaciones())
+        casa.cambiarMes()
+        assert.equals(100, casa.viveres())
+        assert.equals(0, casa.saldo())
+    }
+}
