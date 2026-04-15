@@ -55,22 +55,20 @@ object cuentaCombinada{
     }
     method retirar(monto){
         self.validarExtraccion(monto)
-        self.retirarDeCuenta(cuentaPrimaria, monto)
+        if (self.saldoSuficiente(cuentaPrimaria, monto)){ 
+                cuentaPrimaria.retirar(monto) 
+                }
+            else {
+                cuentaSecundaria.retirar(monto - 0.max(cuentaPrimaria.saldo()))
+                cuentaPrimaria.saldo(0.max(cuentaPrimaria.saldo() - monto))
+            }
     }
-    method chequearSaldoNegativo(cuenta, monto){
-        return ((0.max(cuenta.saldo()) - monto) < 0)
+    method saldoSuficiente(cuenta, monto){
+        return ((0.max(cuenta.saldo()) - monto) > 0)
     }
     method validarExtraccion(monto){
         if (self.saldo() < monto){
             self.error("no hay suficiente saldo para extraer")
-        }
-    }
-    method retirarDeCuenta(cuenta, monto){
-        if (self.chequearSaldoNegativo(cuenta, monto)){
-            cuenta.saldo(0.max(cuenta.saldo() - monto))
-        }
-        else {
-            cuenta.saldo(cuenta.saldo() - monto)
         }
     }
 }
