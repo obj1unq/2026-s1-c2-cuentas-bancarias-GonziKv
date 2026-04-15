@@ -1,0 +1,29 @@
+import casa.*
+import cuentas.*
+describe "Caso de prueba" {
+  test "Casa caso 1" {
+    casa.viveres(30)
+    casa.cuenta(cuentaCorriente)
+    cuentaCorriente.saldo(2000)
+    casa.reparaciones(0)
+    casa.registrarMontoAReparar(1000)
+    assert.notThat(casa.viveresSuficientes())
+    assert.that(casa.faltanReparaciones())
+    assert.notThat(casa.casaEnOrden())
+    assert.throwsException({casa.comprarViveres(80, 2)})
+    assert.equals(30, casa.viveres())
+    assert.equals(2000, cuentaCorriente.saldo())
+    assert.equals(0, casa.gastosDelMes())
+    casa.comprarViveres(20, 2)
+    assert.that(casa.viveresSuficientes())
+    assert.equals(50, casa.viveres())
+    assert.notThat(casa.casaEnOrden())
+    assert.equals(1960, cuentaCorriente.saldo())
+    assert.equals(40, casa.gastosDelMes())
+    casa.repararCasa()
+    assert.notThat(casa.faltanReparaciones())
+    assert.that(casa.casaEnOrden())
+    assert.equals(960, cuentaCorriente.saldo())
+    assert.equals(1040, casa.gastosDelMes())
+   }
+}
